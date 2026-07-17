@@ -164,7 +164,7 @@ class _EndGameScreenState extends State<EndGameScreen>
                                     child: Column(
                                       children: [
                                         const Text(
-                                          'IMPOSTER HINTS',
+                                          'IMPOSTER HINT',
                                           style: TextStyle(
                                             color: AppTheme.accentRed,
                                             fontSize: 10,
@@ -174,7 +174,10 @@ class _EndGameScreenState extends State<EndGameScreen>
                                         ),
                                         const SizedBox(height: 4),
                                         Text(
-                                          game.currentWordPair!.imposterHints.join(', '),
+                                          game.players
+                                              .where((p) => p.role == PlayerRole.imposter)
+                                              .map((p) => p.secretWord ?? '—')
+                                              .join(' / '),
                                           textAlign: TextAlign.center,
                                           style: const TextStyle(
                                             color: AppTheme.textPrimary,
