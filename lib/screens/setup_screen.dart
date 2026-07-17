@@ -127,7 +127,7 @@ class _SetupScreenState extends State<SetupScreen> {
     return Column(
       children: [
         Text(
-          'WHO IS THE',
+          'WHO\'S THE',
           style: GoogleFonts.bungee(
             color: const Color(0xFF4B4B4B),
             fontSize: 20,

@@ -6,6 +6,7 @@ import '../models/game_state.dart';
 import '../models/player.dart';
 import '../theme/app_theme.dart';
 import '../widgets/capsule_button.dart';
+import '../widgets/exit_confirmation.dart';
 import '../widgets/flip_card.dart';
 
 /// Pass-and-play secret word reveal screen.
@@ -63,7 +64,14 @@ class _SecretRevealScreenState extends State<SecretRevealScreen>
     HapticFeedback.heavyImpact();
     setState(() {
       _isFlipped = true;
-      _revealedOnce = true;
+    });
+    // Require the user to hold/flip the card for at least 250ms to activate the NEXT button
+    Future.delayed(const Duration(milliseconds: 250), () {
+      if (mounted && _isFlipped) {
+        setState(() {
+          _revealedOnce = true;
+        });
+      }
     });
   }
 
@@ -120,10 +128,24 @@ class _SecretRevealScreenState extends State<SecretRevealScreen>
                 ),
                 child: Column(
                   children: [
-                    const SizedBox(height: AppTheme.spaceL),
-                    // Progress indicator
-                    _buildProgress(playerIndex, totalPlayers),
-                    const SizedBox(height: AppTheme.spaceXL),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            ExitGameConfirmation.show(context, onConfirm: () {
+                              game.resetToSetup();
+                              Navigator.pushNamedAndRemoveUntil(context, '/setup', (route) => false);
+                            });
+                          },
+                          icon: const Icon(Icons.close_rounded, color: AppTheme.textSecondary),
+                        ),
+                        Expanded(
+                          child: _buildProgress(playerIndex, totalPlayers),
+                        ),
+                        const SizedBox(width: 48), // Spacer to balance close button size
+                      ],
+                    ),
+                    const SizedBox(height: AppTheme.spaceM),
                     // Player name prompt
                     Text(
                       'PASS THE PHONE TO',
@@ -269,11 +291,18 @@ class _SecretRevealScreenState extends State<SecretRevealScreen>
         const SizedBox(height: AppTheme.spaceS),
         ClipRRect(
           borderRadius: BorderRadius.circular(2),
-          child: LinearProgressIndicator(
-            value: (current + 1) / total,
-            backgroundColor: AppTheme.surfaceBorder,
-            valueColor: const AlwaysStoppedAnimation(AppTheme.accentBlue),
-            minHeight: 3,
+          child: TweenAnimationBuilder<double>(
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+            tween: Tween<double>(begin: 0, end: (current + 1) / total),
+            builder: (context, value, child) {
+              return LinearProgressIndicator(
+                value: value,
+                backgroundColor: AppTheme.surfaceBorder,
+                valueColor: const AlwaysStoppedAnimation(AppTheme.accentBlue),
+                minHeight: 3,
+              );
+            },
           ),
         ),
       ],

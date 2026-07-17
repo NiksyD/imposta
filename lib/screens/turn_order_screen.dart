@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../models/game_state.dart';
 import '../theme/app_theme.dart';
 import '../widgets/capsule_button.dart';
+import '../widgets/exit_confirmation.dart';
 import '../widgets/frosted_card.dart';
 import '../widgets/player_avatar.dart';
 
@@ -54,15 +55,31 @@ class _TurnOrderScreenState extends State<TurnOrderScreen>
                 ),
                 child: Column(
                   children: [
-                    const SizedBox(height: AppTheme.spaceL),
-                    // Header
-                    Text(
-                      'THE SEQUENCE',
-                      style: GoogleFonts.bungee(
-                        color: AppTheme.textPrimary,
-                        fontSize: 26,
-                        letterSpacing: 1,
-                      ),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            ExitGameConfirmation.show(context, onConfirm: () {
+                              game.resetToSetup();
+                              Navigator.pushNamedAndRemoveUntil(context, '/setup', (route) => false);
+                            });
+                          },
+                          icon: const Icon(Icons.close_rounded, color: AppTheme.textSecondary),
+                        ),
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              'THE SEQUENCE',
+                              style: GoogleFonts.bungee(
+                                color: AppTheme.textPrimary,
+                                fontSize: 24,
+                                letterSpacing: 1,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 48), // Spacer to balance close button size
+                      ],
                     ),
                     const SizedBox(height: AppTheme.spaceM),
                     // First speaker card

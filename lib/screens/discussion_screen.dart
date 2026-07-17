@@ -9,6 +9,7 @@ import '../models/game_state.dart';
 import '../theme/app_theme.dart';
 import '../widgets/arc_timer.dart';
 import '../widgets/capsule_button.dart';
+import '../widgets/exit_confirmation.dart';
 import '../widgets/frosted_card.dart';
 import '../widgets/player_avatar.dart';
 
@@ -90,13 +91,28 @@ class _DiscussionScreenState extends State<DiscussionScreen> {
                 child: Column(
                   children: [
                     const SizedBox(height: AppTheme.spaceM),
-                    // Round and Rotation Info Badge
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        _buildRoundBadge('Round ${game.roundNumber}'),
-                        const SizedBox(width: AppTheme.spaceS),
-                        _buildRoundBadge('Clue ${game.currentRotation}/${game.discussionRotations}'),
+                        IconButton(
+                          onPressed: () {
+                            ExitGameConfirmation.show(context, onConfirm: () {
+                              game.resetToSetup();
+                              Navigator.pushNamedAndRemoveUntil(context, '/setup', (route) => false);
+                            });
+                          },
+                          icon: const Icon(Icons.close_rounded, color: AppTheme.textSecondary),
+                        ),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              _buildRoundBadge('Round ${game.roundNumber}'),
+                              const SizedBox(width: AppTheme.spaceS),
+                              _buildRoundBadge('Clue ${game.currentRotation}/${game.discussionRotations}'),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: 48), // Spacer to balance close button size
                       ],
                     ),
                     const SizedBox(height: AppTheme.spaceM),

@@ -89,18 +89,18 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                            // 1. Soft green circular background halo
+                            // 1. Solid flat off-white background circle
                             Transform.scale(
                               scale: _circleScale.value,
                               child: Container(
-                                width: 150,
-                                height: 150,
+                                width: 155,
+                                height: 155,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  color: AppTheme.accentBlue.withValues(alpha: 0.1),
+                                  color: Colors.white,
                                   border: Border.all(
-                                    color: AppTheme.accentBlue.withValues(alpha: 0.25),
-                                    width: 2.5,
+                                    color: AppTheme.surfaceBorder,
+                                    width: 3,
                                   ),
                                 ),
                               ),
@@ -212,7 +212,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   child: Column(
                     children: [
                       Text(
-                        'WHO IS THE',
+                        "WHO'S THE",
                         style: GoogleFonts.bungee(
                           color: AppTheme.textSecondary,
                           fontSize: 20,

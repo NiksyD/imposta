@@ -7,7 +7,7 @@ import '../models/game_state.dart';
 import '../models/player.dart';
 import '../theme/app_theme.dart';
 import '../widgets/capsule_button.dart';
-import '../widgets/frosted_card.dart';
+import '../widgets/exit_confirmation.dart';
 import '../widgets/player_avatar.dart';
 
 /// Sequential voting screen — pass the phone to each voter.
@@ -63,7 +63,7 @@ class _VotingScreenState extends State<VotingScreen> {
               final votable = game.votablePlayers;
 
               if (_showingHandoff) {
-                return _buildHandoff(voter);
+                return _buildHandoff(game, voter);
               }
 
               return Padding(
@@ -72,16 +72,32 @@ class _VotingScreenState extends State<VotingScreen> {
                 ),
                 child: Column(
                   children: [
-                    const SizedBox(height: AppTheme.spaceL),
-                    // Voter name and phase badge
-                    Text(
-                      '${voter.name.toUpperCase()}\'S VOTE',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.bungee(
-                        color: AppTheme.textPrimary,
-                        fontSize: 24,
-                        letterSpacing: 0.5,
-                      ),
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            ExitGameConfirmation.show(context, onConfirm: () {
+                              game.resetToSetup();
+                              Navigator.pushNamedAndRemoveUntil(context, '/setup', (route) => false);
+                            });
+                          },
+                          icon: const Icon(Icons.close_rounded, color: AppTheme.textSecondary),
+                        ),
+                        Expanded(
+                          child: Center(
+                            child: Text(
+                              '${voter.name.toUpperCase()}\'S VOTE',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.bungee(
+                                color: AppTheme.textPrimary,
+                                fontSize: 20,
+                                letterSpacing: 0.5,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 48), // Spacer to balance close button size
+                      ],
                     ),
                     const SizedBox(height: AppTheme.spaceM),
                     Container(
@@ -206,49 +222,68 @@ class _VotingScreenState extends State<VotingScreen> {
     );
   }
 
-  Widget _buildHandoff(Player voter) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppTheme.spaceXL),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
+  Widget _buildHandoff(GameState game, Player voter) {
+    return Column(
+      children: [
+        Row(
           children: [
-            PlayerAvatar(
-              name: voter.name,
-              size: 80,
-            ),
-            const SizedBox(height: AppTheme.spaceL),
-            const Text(
-              'PASS THE PHONE TO',
-              style: TextStyle(
-                color: AppTheme.textSecondary,
-                fontSize: 13,
-                fontWeight: FontWeight.w800,
-                letterSpacing: 1.0,
-              ),
-            ),
-            const SizedBox(height: AppTheme.spaceS),
-            Text(
-              voter.name,
-              style: const TextStyle(
-                color: AppTheme.textPrimary,
-                fontSize: 32,
-                fontWeight: FontWeight.w900,
-              ),
-            ),
-            const SizedBox(height: AppTheme.spaceXXL),
-            SizedBox(
-              width: double.infinity,
-              child: CapsuleButton(
-                label: 'I\'M READY TO VOTE',
-                icon: Icons.how_to_vote_outlined,
-                onPressed: _onReady,
-                large: true,
-              ),
+            IconButton(
+              onPressed: () {
+                ExitGameConfirmation.show(context, onConfirm: () {
+                  game.resetToSetup();
+                  Navigator.pushNamedAndRemoveUntil(context, '/setup', (route) => false);
+                });
+              },
+              icon: const Icon(Icons.close_rounded, color: AppTheme.textSecondary),
             ),
           ],
         ),
-      ),
+        Expanded(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppTheme.spaceXL),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  PlayerAvatar(
+                    name: voter.name,
+                    size: 80,
+                  ),
+                  const SizedBox(height: AppTheme.spaceL),
+                  const Text(
+                    'PASS THE PHONE TO',
+                    style: TextStyle(
+                      color: AppTheme.textSecondary,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: 1.0,
+                    ),
+                  ),
+                  const SizedBox(height: AppTheme.spaceS),
+                  Text(
+                    voter.name,
+                    style: const TextStyle(
+                      color: AppTheme.textPrimary,
+                      fontSize: 32,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                  const SizedBox(height: AppTheme.spaceXXL),
+                  SizedBox(
+                    width: double.infinity,
+                    child: CapsuleButton(
+                      label: 'I\'M READY TO VOTE',
+                      icon: Icons.how_to_vote_outlined,
+                      onPressed: _onReady,
+                      large: true,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
