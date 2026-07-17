@@ -287,7 +287,7 @@ class CardBack extends StatelessWidget {
                 const SizedBox(height: AppTheme.spaceM),
                 Text(
                   role.toUpperCase(),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Bungee',
                     color: accentColor,
                     fontSize: 24,

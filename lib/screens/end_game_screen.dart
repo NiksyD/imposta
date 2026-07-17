@@ -102,7 +102,7 @@ class _EndGameScreenState extends State<EndGameScreen>
                                 Text(
                                   _winnerTitle(game.winner!).toUpperCase(),
                                   textAlign: TextAlign.center,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontFamily: 'Bungee',
                                     color: winnerColor,
                                     fontSize: 30,
@@ -147,7 +147,7 @@ class _EndGameScreenState extends State<EndGameScreen>
                                         const SizedBox(height: 4),
                                         Text(
                                           game.currentWordPair!.civilianWord,
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             color: AppTheme.textPrimary,
                                             fontSize: 18,
                                             fontWeight: FontWeight.w900,
