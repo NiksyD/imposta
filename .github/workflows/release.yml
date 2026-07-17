@@ -1,0 +1,62 @@
+name: Build & Release APK
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'   # Triggers on tags like v1.0.0, v1.2.3, etc.
+
+jobs:
+  build:
+    name: Build Release APK
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout the code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Set up Java (required for Android builds)
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # 3. Set up Flutter
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'stable'
+          channel: 'stable'
+
+      # 4. Install dependencies
+      - name: Install dependencies
+        run: flutter pub get
+
+      # 5. Build the release APK
+      - name: Build release APK
+        run: flutter build apk --release
+
+      # 6. Rename APK to include version tag
+      - name: Rename APK with version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/}
+          mv build/app/outputs/flutter-apk/app-release.apk \
+             build/app/outputs/flutter-apk/imposta-${VERSION}.apk
+
+      # 7. Create GitHub Release and upload APK
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "IMPOSTA ${{ github.ref_name }}"
+          body: |
+            ## 🎭 IMPOSTA ${{ github.ref_name }}
+
+            Download the APK below and install it on your Android device.
+
+            > **How to install:** Enable *Install unknown apps* in your phone settings, then tap the APK file.
+          files: build/app/outputs/flutter-apk/imposta-${{ github.ref_name }}.apk
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
