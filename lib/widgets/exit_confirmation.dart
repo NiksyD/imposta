@@ -18,7 +18,8 @@ class ExitGameConfirmation {
           ),
           title: Text(
             'Exit Game?',
-            style: GoogleFonts.bungee(
+            style: const TextStyle(
+              fontFamily: 'Bungee',
               color: AppTheme.textPrimary,
               fontSize: 18,
             ),

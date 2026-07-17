@@ -145,7 +145,8 @@ class _DiscussionScreenState extends State<DiscussionScreen> {
                               children: [
                                 Text(
                                   activeSpeaker.name.toUpperCase(),
-                                  style: GoogleFonts.bungee(
+                                  style: const TextStyle(
+                                    fontFamily: 'Bungee',
                                     color: AppTheme.accentBlue,
                                     fontSize: 16,
                                     letterSpacing: 0.5,
@@ -333,7 +334,8 @@ class _DiscussionScreenState extends State<DiscussionScreen> {
           ),
           title: Text(
             'Ready to Vote?',
-            style: GoogleFonts.bungee(
+            style: const TextStyle(
+              fontFamily: 'Bungee',
               color: AppTheme.textPrimary,
               fontSize: 18,
             ),

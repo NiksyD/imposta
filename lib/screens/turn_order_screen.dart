@@ -70,7 +70,8 @@ class _TurnOrderScreenState extends State<TurnOrderScreen>
                           child: Center(
                             child: Text(
                               'THE SEQUENCE',
-                              style: GoogleFonts.bungee(
+                              style: const TextStyle(
+                                fontFamily: 'Bungee',
                                 color: AppTheme.textPrimary,
                                 fontSize: 24,
                                 letterSpacing: 1,

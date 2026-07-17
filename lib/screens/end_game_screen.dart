@@ -102,7 +102,8 @@ class _EndGameScreenState extends State<EndGameScreen>
                                 Text(
                                   _winnerTitle(game.winner!).toUpperCase(),
                                   textAlign: TextAlign.center,
-                                  style: GoogleFonts.bungee(
+                                  style: const TextStyle(
+                                    fontFamily: 'Bungee',
                                     color: winnerColor,
                                     fontSize: 30,
                                     letterSpacing: 0.5,

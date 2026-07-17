@@ -166,7 +166,8 @@ class CardFront extends StatelessWidget {
                 const SizedBox(height: AppTheme.spaceM),
                 Text(
                   'WHO IS IT?',
-                  style: GoogleFonts.bungee(
+                  style: const TextStyle(
+                    fontFamily: 'Bungee',
                     color: AppTheme.textPrimary,
                     fontSize: 20,
                     letterSpacing: 2,
@@ -286,7 +287,8 @@ class CardBack extends StatelessWidget {
                 const SizedBox(height: AppTheme.spaceM),
                 Text(
                   role.toUpperCase(),
-                  style: GoogleFonts.bungee(
+                  style: const TextStyle(
+                    fontFamily: 'Bungee',
                     color: accentColor,
                     fontSize: 24,
                     letterSpacing: 2,

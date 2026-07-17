@@ -213,7 +213,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     children: [
                       Text(
                         "WHO'S THE",
-                        style: GoogleFonts.bungee(
+                        style: const TextStyle(
+                          fontFamily: 'Bungee',
                           color: AppTheme.textSecondary,
                           fontSize: 20,
                           letterSpacing: 2,
@@ -221,7 +222,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       ),
                       Text(
                         'IMPOSTA?',
-                        style: GoogleFonts.bungee(
+                        style: const TextStyle(
+                          fontFamily: 'Bungee',
                           color: AppTheme.accentBlue,
                           fontSize: 40,
                           letterSpacing: 1,

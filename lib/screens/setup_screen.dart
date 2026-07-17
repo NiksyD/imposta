@@ -128,8 +128,9 @@ class _SetupScreenState extends State<SetupScreen> {
       children: [
         Text(
           'WHO\'S THE',
-          style: GoogleFonts.bungee(
-            color: const Color(0xFF4B4B4B),
+          style: const TextStyle(
+            fontFamily: 'Bungee',
+            color: Color(0xFF4B4B4B),
             fontSize: 20,
             letterSpacing: 1.5,
             height: 1.0,
@@ -137,7 +138,8 @@ class _SetupScreenState extends State<SetupScreen> {
         ),
         Text(
           'IMPOSTA?',
-          style: GoogleFonts.bungee(
+          style: const TextStyle(
+            fontFamily: 'Bungee',
             color: AppTheme.accentBlue,
             fontSize: 38,
             letterSpacing: 0.5,

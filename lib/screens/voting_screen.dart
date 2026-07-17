@@ -88,7 +88,8 @@ class _VotingScreenState extends State<VotingScreen> {
                             child: Text(
                               '${voter.name.toUpperCase()}\'S VOTE',
                               textAlign: TextAlign.center,
-                              style: GoogleFonts.bungee(
+                              style: const TextStyle(
+                                fontFamily: 'Bungee',
                                 color: AppTheme.textPrimary,
                                 fontSize: 20,
                                 letterSpacing: 0.5,

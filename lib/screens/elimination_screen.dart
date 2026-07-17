@@ -144,7 +144,8 @@ class _EliminationScreenState extends State<EliminationScreen>
                                   children: [
                                     Text(
                                       'ELIMINATED',
-                                      style: GoogleFonts.bungee(
+                                      style: const TextStyle(
+                                        fontFamily: 'Bungee',
                                         color: AppTheme.accentRed,
                                         fontSize: 22,
                                         letterSpacing: 1,
