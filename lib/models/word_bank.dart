@@ -26,6 +26,7 @@ enum WordCategory {
   brandsLogos,
   colorsShapes,
   hobbiesActivities,
+  professions,
   random,
 }
 
@@ -53,6 +54,8 @@ extension WordCategoryLabel on WordCategory {
         return 'Colors & Shapes';
       case WordCategory.hobbiesActivities:
         return 'Hobbies & Activities';
+      case WordCategory.professions:
+        return 'Professions & Jobs';
       case WordCategory.random:
         return 'Random';
     }
@@ -80,6 +83,8 @@ extension WordCategoryLabel on WordCategory {
         return '🎨';
       case WordCategory.hobbiesActivities:
         return '🎯';
+      case WordCategory.professions:
+        return '👔';
       case WordCategory.random:
         return '🎲';
     }
@@ -288,6 +293,28 @@ class WordBank {
       WordPair('Hiking', ['Trail', 'Mountain']),
       WordPair('Chess', ['Board', 'Black & White']),
       WordPair('Guitar', ['String', 'Fingers']),
+    ],
+    WordCategory.professions: [
+      WordPair('Doctor', ['White coat', 'Hospital', 'Stethoscope', 'Heal']),
+      WordPair('Teacher', ['Chalk', 'Lesson', 'Classroom', 'Board']),
+      WordPair('Nurse', ['Scrubs', 'Care', 'Ward', 'Needle']),
+      WordPair('Lawyer', ['Court', 'Suit', 'Brief', 'Argue']),
+      WordPair('Chef', ['Apron', 'Kitchen', 'Knife', 'Recipe']),
+      WordPair('Police', ['Badge', 'Uniform', 'Patrol', 'Law']),
+      WordPair('Firefighter', ['Hose', 'Ladder', 'Rescue', 'Gear']),
+      WordPair('Engineer', ['Design', 'Build', 'Math', 'Blueprint']),
+      WordPair('Pilot', ['Cockpit', 'Wings', 'Altitude', 'Uniform']),
+      WordPair('Farmer', ['Field', 'Harvest', 'Plow', 'Sun']),
+      WordPair('Fisherman', ['Net', 'Boat', 'Catch', 'Early']),
+      WordPair('Vendor', ['Cart', 'Sell', 'Street', 'Shout']),
+      WordPair('Carpenter', ['Wood', 'Hammer', 'Nail', 'Build']),
+      WordPair('Barber', ['Scissors', 'Chair', 'Trim', 'Razor']),
+      WordPair('Driver', ['Wheel', 'Seat', 'Route', 'Road']),
+      WordPair('Scientist', ['Lab', 'Experiment', 'Coat', 'Research']),
+      WordPair('Artist', ['Brush', 'Canvas', 'Create', 'Color']),
+      WordPair('Athlete', ['Train', 'Sport', 'Medal', 'Compete']),
+      WordPair('Security Guard', ['Uniform', 'Entrance', 'Watch', 'Patrol']),
+      WordPair('Dentist', ['Drill', 'Teeth', 'Chair', 'Clinic']),
     ],
   };
 
