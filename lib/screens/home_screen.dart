@@ -89,28 +89,106 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                            // Render the premium app logo image asset directly with a scale animation
+                            // 1. Solid flat off-white background circle
                             Transform.scale(
                               scale: _circleScale.value,
                               child: Container(
+                                width: 155,
+                                height: 155,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.06),
-                                      blurRadius: 16,
-                                      offset: const Offset(0, 8),
+                                  color: Colors.white,
+                                  border: Border.all(
+                                    color: AppTheme.surfaceBorder,
+                                    width: 3,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            
+                            // 2. Detective Hat Brim & Crown (Stylized Vector)
+                            Positioned(
+                              top: 50 + (10 * (1.0 - _circleScale.value)),
+                              child: Opacity(
+                                opacity: _circleScale.value.clamp(0.0, 1.0),
+                                child: Column(
+                                  children: [
+                                    // Crown of the hat
+                                    Container(
+                                      width: 60,
+                                      height: 38,
+                                      decoration: const BoxDecoration(
+                                        color: AppTheme.textPrimary,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(16),
+                                          topRight: Radius.circular(16),
+                                        ),
+                                      ),
+                                    ),
+                                    // Hat ribbon band
+                                    Container(
+                                      width: 60,
+                                      height: 8,
+                                      color: AppTheme.accentBlue,
+                                    ),
+                                    // Hat brim curve
+                                    Container(
+                                      width: 96,
+                                      height: 6,
+                                      decoration: BoxDecoration(
+                                        color: AppTheme.textPrimary,
+                                        borderRadius: BorderRadius.circular(100),
+                                      ),
                                     ),
                                   ],
                                 ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(100),
-                                  child: Image.asset(
-                                    'assets/logo.png',
-                                    width: 155,
-                                    height: 155,
-                                    fit: BoxFit.cover,
-                                  ),
+                              ),
+                            ),
+
+                            // 3. Glowing Spy Glasses / Mask Eyes (Floating below hat)
+                            Positioned(
+                              top: 104,
+                              child: Transform.rotate(
+                                angle: _angleRotation.value * 0.1, // subtle tilt
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    // Left eye
+                                    AnimatedContainer(
+                                      duration: const Duration(milliseconds: 200),
+                                      width: 28,
+                                      height: 18,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: const BorderRadius.only(
+                                          bottomLeft: Radius.circular(14),
+                                          bottomRight: Radius.circular(14),
+                                        ),
+                                        border: Border.all(
+                                          color: AppTheme.accentBlue,
+                                          width: 3,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    // Right eye
+                                    AnimatedContainer(
+                                      duration: const Duration(milliseconds: 200),
+                                      width: 28,
+                                      height: 18,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: const BorderRadius.only(
+                                          bottomLeft: Radius.circular(14),
+                                          bottomRight: Radius.circular(14),
+                                        ),
+                                        border: Border.all(
+                                          color: AppTheme.accentBlue,
+                                          width: 3,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
