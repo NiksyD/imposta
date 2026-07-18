@@ -34,7 +34,8 @@ class GameState extends ChangeNotifier {
   bool useTimer = false;
   int discussionSeconds = 60;
   bool giveImposterHint = true;
-  int discussionRotations = 1; // 1, 2, or 3 rounds of clues per player
+  int discussionRotations = 2; // 1, 2, or 3 rounds of clues per player
+  bool oneRoundOnly = false;
 
   // ── Live game state ─────────────────────────────────────────────
   GamePhase phase = GamePhase.setup;
@@ -125,9 +126,18 @@ class GameState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setOneRoundOnly(bool val) {
+    oneRoundOnly = val;
+    notifyListeners();
+  }
+
   /// Calculated innocent count.
   int get innocentCount =>
       playerNames.length - imposterCount;
+
+  /// The effective number of discussion rotations for the current round.
+  /// Round 1 uses the configured discussionRotations; subsequent rounds use 1.
+  int get effectiveDiscussionRotations => roundNumber == 1 ? discussionRotations : 1;
 
   /// Max imposters allowed (innocents must always outnumber others).
   int get maxImposterCount {
@@ -259,7 +269,7 @@ class GameState extends ChangeNotifier {
       currentSpeakerIndex++;
       notifyListeners();
       return true;
-    } else if (currentRotation < discussionRotations) {
+    } else if (currentRotation < effectiveDiscussionRotations) {
       currentSpeakerIndex = 0;
       currentRotation++;
       notifyListeners();
@@ -348,6 +358,12 @@ class GameState extends ChangeNotifier {
       return;
     }
 
+    // If configured to run for 1 round only, and any imposter survives, they win.
+    if (oneRoundOnly) {
+      winner = GameWinner.imposter;
+      return;
+    }
+
     // Imposter wins: they equal or outnumber innocents
     if (aliveImposters.length >= aliveInnocents.length) {
       winner = GameWinner.imposter;
@@ -368,6 +384,8 @@ class GameState extends ChangeNotifier {
       // Next round
       roundNumber++;
       currentSpeakerIndex = 0;
+      currentRotation = 1;
+      playerClues.clear();
       phase = GamePhase.discussion;
     }
     notifyListeners();

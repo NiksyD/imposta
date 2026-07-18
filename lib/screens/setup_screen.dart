@@ -697,6 +697,42 @@ class _SetupScreenState extends State<SetupScreen> {
             ],
           ),
           const SizedBox(height: AppTheme.spaceM),
+          // 1 Round Only toggle
+          Row(
+            children: [
+              const Text('🏁 ', style: TextStyle(fontSize: 16)),
+              const SizedBox(width: AppTheme.spaceS),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      '1 Round Only',
+                      style: TextStyle(
+                        color: AppTheme.textPrimary,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const Text(
+                      'Game ends after one voting round',
+                      style: TextStyle(
+                        color: AppTheme.textSecondary,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Switch.adaptive(
+                value: game.oneRoundOnly,
+                activeColor: AppTheme.accentBlue,
+                onChanged: (v) => game.setOneRoundOnly(v),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppTheme.spaceM),
           // Discussion rotations configuration picker
           const Text(
             '🔄 CLUE ROTATIONS',

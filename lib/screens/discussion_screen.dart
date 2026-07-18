@@ -77,7 +77,7 @@ class _DiscussionScreenState extends State<DiscussionScreen> {
             builder: (context, game, _) {
               final alivePlayers = game.aliveTurnOrder;
               final activeSpeaker = game.currentSpeaker;
-              final totalCluesExpected = alivePlayers.length * game.discussionRotations;
+              final totalCluesExpected = alivePlayers.length * game.effectiveDiscussionRotations;
               final totalCluesSubmitted = game.playerClues.values
                   .fold<int>(0, (sum, list) => sum + list.length);
               
@@ -108,7 +108,7 @@ class _DiscussionScreenState extends State<DiscussionScreen> {
                             children: [
                               _buildRoundBadge('Round ${game.roundNumber}'),
                               const SizedBox(width: AppTheme.spaceS),
-                              _buildRoundBadge('Clue ${game.currentRotation}/${game.discussionRotations}'),
+                              _buildRoundBadge('Clue ${game.currentRotation}/${game.effectiveDiscussionRotations}'),
                             ],
                           ),
                         ),
